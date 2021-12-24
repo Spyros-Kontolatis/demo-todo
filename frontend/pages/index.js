@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import styles from '../styles/Home.module.css'
 import Api from "../core/api"
+import ToDoListTable from '../components/ToDoListTable'
 
 export default class Home extends React.Component {
 
@@ -15,15 +16,30 @@ export default class Home extends React.Component {
     return { todos }
   }
 
+  constructor(props){
+    super(props)
+    this.state={
+      todos: props.todos
+    }
+  }
+
   async click() {
     const api = new Api()
 
-    await api.fetchJson("/todo/add", "POST", { text: "test" })
+    let newTodo = await api.fetchJson("/todo/add", "POST", { text: "test" });
+    this.setState({
+      todos: [...this.state.todos, newTodo]
+    })
+  }
+  async delete(id){
+    const api = new Api()
+    let newTodos = await api.fetchJson("/todo/remove", "POST", { id: id })
+    this.setState({
+      todos:newTodos
+    })
   }
 
   render() {
-    console.log(this.props.todos)
-
     return (
       <div>
         <Head>
@@ -34,8 +50,16 @@ export default class Home extends React.Component {
         <div className={styles.welcome}>
           <h1>TODO LIST</h1>
         </div>
-
-        <button onClick={this.click.bind(this)}>ADD</button>
+        <ToDoListTable 
+          headers={['ID','Text','Actions']} 
+          values={this.state.todos}
+          fnDeleteValue={(id)=>{
+            this.delete.bind(this); 
+            this.delete(id);
+          }}
+        />
+        <button onClick={this.click.bind(this)} className={styles.addBtn}>Add new record</button>
+        
       </div>
     )
   }

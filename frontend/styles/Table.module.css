@@ -1,0 +1,72 @@
+.responsiveTable{
+    width:100%;
+    max-width:100%;
+    margin:auto;
+    padding: 0 20px;
+}
+.responsiveTable li{
+    border-radius: 3px;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+.tableHeader {
+    background-color: #dedede;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.tableRow {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+}
+.responsiveTable .col {
+    flex-basis: 33%;
+}
+
+.deleteBtn{
+    width:30%;
+    margin:auto;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 11px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    cursor: pointer;
+    padding: 2px;
+}
+@media(max-width:1200px){
+    .deleteBtn{
+        width:50%;
+    }
+}
+@media all and (max-width: 767px) {
+    .tableHeader {
+      display: none!important;
+    }
+    .responsiveTable li {
+      display: block;
+    }
+    .responsiveTable .col {
+      flex-basis: 100%;
+      display: flex;
+      padding: 10px 0;
+    }
+    .responsiveTable .col:after {
+        color: #6C7A89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: left;
+    }
+}
+
+
+@media (max-width:576px){
+
+    .deleteBtn{
+        width:70%;
+    }
+}

@@ -19,8 +19,9 @@ md.add = async (req, res) => {
 md.remove = async (req, res) => {
     
     // TO IMPLEMENT
-
-    res.json('ok')
+    let deleted = await req.db.collection("todos").deleteOne({_id:new ObjectId(req.body.id)})
+    let todos = await req.db.collection("todos").find({}).toArray()
+    res.json(todos)
 }
 
 md.get = async (req, res) => {
